@@ -40,7 +40,7 @@ wind-forecast-insights/
 │   └── package.json            # React, Vite, Recharts dependencies
 ├── Dockerfile                  # Single-container image for a Docker host
 ├── docker-compose.yml          # Local frontend + backend services
-└── vercel.toml                 # Frontend + FastAPI deployment routing
+└── vercel.json                 # Frontend + FastAPI service and routing configuration
 ```
 
 ## Run locally without Docker
@@ -52,8 +52,8 @@ Requires Python 3.11 or 3.12 and Node.js 24 LTS (or another compatible current L
 ```powershell
 cd backend
 py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8000
+.\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt
+.\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000
 ```
 
 The API is available at `http://localhost:8000`; interactive API docs are at `http://localhost:8000/docs`.
@@ -82,9 +82,9 @@ Open `http://localhost:8080`. The API is available at `http://localhost:8000/doc
 
 ## Deploy the sample app to Vercel
 
-The root `vercel.toml` defines a Vite web service and a FastAPI service in one project. It sends `/api/*` requests to FastAPI and all other paths to the React app. See [Python on Vercel](https://vercel.com/changelog/python-on-vercel-is-now-generally-available) and [FastAPI on Vercel](https://vercel.com/docs/frameworks/backend/fastapi) for the current multi-service deployment model.
+The root `vercel.json` defines a Vite web service and a FastAPI service in one project. It sends `/api/*` and `/health` requests to FastAPI and all other paths to the React app. See [Vercel Services](https://vercel.com/docs/services) for the current multi-service deployment model.
 
-After pushing the public GitHub repository, import it in Vercel. The root `vercel.toml` should configure both services; deploy from the repository root. Alternatively, with the Vercel CLI installed and authenticated:
+In Vercel, import this public GitHub repository and deploy from the repository root. If prompted, set the project framework to **Services**. Vercel Services are currently in beta and may require access to be enabled for your account. Alternatively, with the Vercel CLI installed and authenticated:
 
 ```powershell
 npx vercel
@@ -98,25 +98,3 @@ Add the final public Vercel URL to this README. The root `Dockerfile` remains av
 - Create a **public GitHub repository** with a random/anonymous name, then push this folder.
 - Keep the source data files in the repository so the deployed demo can start without a separate data download.
 - Replace the deployment placeholder with the public app URL.
-- Record an unlisted YouTube demo no longer than 10 minutes: up to 5 minutes for the customer pitch and up to 5 minutes for the technical review.
-- Submit the repository, deployed app, and video links in the challenge form. Check each URL in an incognito window.
-- Use [VIDEO_DEMO_SCRIPT.md](VIDEO_DEMO_SCRIPT.md) as a timed outline for the required customer and technical sections.
-
-Create a new **public** repository at GitHub (use a random name such as `wf-7k2p9`, and leave it empty). Then add it as the remote and push this folder's existing `main` branch:
-
-```powershell
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-ANONYMOUS-REPO.git
-git push -u origin main
-```
-
-If you prefer GitHub CLI, it can create the public repository and push in one step:
-
-```powershell
-gh repo create YOUR-ANONYMOUS-REPO --public --source . --remote origin --push
-```
-
-The GitHub CLI (`gh`) can also create the repo and push in one step: `gh repo create YOUR-ANONYMOUS-REPO --public --source . --remote origin --push`.
-
-## AI assistance disclosure
-
-OpenAI Codex assisted with project scaffolding, implementation, and documentation. The developer should review the forecast-selection logic and data assumptions before using the app or presenting its results.
