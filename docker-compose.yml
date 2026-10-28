@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: ./backend
+    container_name: wind-insights-api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    container_name: wind-insights-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
