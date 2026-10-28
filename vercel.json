@@ -1,10 +1,12 @@
 {
   "services": {
     "web": {
-      "root": "frontend/"
+      "root": "frontend/",
+      "framework": "vite"
     },
     "api": {
       "root": "backend/",
+      "framework": "fastapi",
       "entrypoint": "app.main:app"
     }
   },
